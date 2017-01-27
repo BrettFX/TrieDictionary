@@ -1,8 +1,7 @@
 #include "TrieDictionary.h"
 
 TrieDictionary::TrieDictionary()
-{
-	numAllocs = 0;
+{	
 	root = NULL;	
 }
 
@@ -14,7 +13,11 @@ TrieDictionary::TrieDictionary()
 void TrieDictionary::insert(char* word)
 {
 	if(!root)
-		root = new Node();
+	{
+		root = new TrieNode();
+		root->parent = NULL;		
+		root->occurrences = 0;
+	}		
 	
 	insert(root, word);
 }
@@ -33,7 +36,10 @@ void TrieDictionary::insert(TrieDictionary::TrieNode* currentNode, char* word)
 		if(!currentNode->children[*word - CASE])
 		{
 			//Create a new node at the child that was pointing to null and set that child's parent equal to the currentNode
-			currentNode->children[*word - CASE] = new Node();
+			currentNode->children[*word - CASE] = new TrieNode();
+			currentNode->children[*word - CASE]->parent = NULL;			
+			currentNode->children[*word - CASE]->occurrences = 0;
+			
 			currentNode->children[*word - CASE]->parent = currentNode;
 		}
 		
@@ -129,7 +135,7 @@ void TrieDictionary::remove(TrieDictionary::TrieNode* currentNode, char* word)
 void TrieDictionary::lexiDisplay()
 {
 	if(root)
-		lexiDisplay(root)
+		lexiDisplay(root);
 	else
 		std::cout << "No words exist in this dictionary\n";
 }
@@ -150,7 +156,7 @@ void TrieDictionary::lexiDisplay(TrieDictionary::TrieNode* currentNode)
 			std::cout << *it;
 		}
 		
-		cout << " " << currentNode->occurrences << "\n";
+		std::cout << " " << currentNode->occurrences << "\n";
 	}
 	
 	//Traverse children and find any child that exists
@@ -168,5 +174,5 @@ void TrieDictionary::lexiDisplay(TrieDictionary::TrieNode* currentNode)
 
 TrieDictionary::~TrieDictionary()
 {
-	
+	std::cout << "Warning: Nothing free'd; Memory leak imminent\n\n";
 }

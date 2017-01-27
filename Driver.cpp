@@ -12,7 +12,7 @@ int main(int argc, char** argv)
 {
 	char input[256];
 	
-	cout << "Please enter a word to be parsed: ";
+	cout << "Please enter a word to be added to the dictionary: ";
 	scanf("%100[^\n]", input);
 	
 	display(input, ' ');
@@ -22,12 +22,18 @@ int main(int argc, char** argv)
 
 void display(char* word, char delim)
 {
+	char c;
+	
 	if(*word != '\0')
 	{
 		cout << "Your word: ";
 		
-		while(*word != '\0')		
-			cout << *word++ << delim;
+		while(*word != '\0')
+		{
+			c = tolower(*word);
+			cout << c << delim;			
+			word++;
+		}
 		
 		cout << "\n";
 	}

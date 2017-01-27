@@ -9,14 +9,14 @@ class TrieDictionary
 {
 	private:
 		
-		const int ALPHABET_SIZE = 26;
-		const int CASE = 'a';
+		static const int ALPHABET_SIZE = 26;
+		static const int CASE = 'a';
 	
 		struct TrieNode
 		{
-			TrieNode* parent = NULL;
-			TrieNode* children[ALPHABET_SIZE] = {};
-			int occurrences = 0;
+			TrieNode* parent;
+			TrieNode* children[ALPHABET_SIZE];
+			int occurrences;					
 		};
 		
 		TrieNode* root;
