@@ -2,6 +2,8 @@
 #include <cstdlib>
 #include <cstdio>
 
+#include "TrieDictionary.h"
+
 using namespace std;
 
 void display(char word[]);
@@ -14,6 +16,14 @@ int main(int argc, char** argv)
 	scanf("%100[^\n]", input);
 	
 	display(input);
+	
+	TrieDictionary trieTree;
+	
+	trieTree.insert(NULL, input);
+	trieTree.insert(NULL, input);
+	trieTree.insert(NULL, input);
+	trieTree.insert(NULL, input);
+	trieTree.insert(NULL, input);
 	
 	return 0;
 }

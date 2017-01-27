@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 class TrieDictionary
 {
@@ -16,15 +17,21 @@ class TrieDictionary
 		};
 		
 		TrieNode* root;
+		
+		int numAllocs;
+		TrieNode* allocator[50];
 	
 	public:
+	
+		TrieDictionary();
 	
 		/**
 		* Add a word to the dictionary
 		*
+		* @param currentNode the currentNode in traversing the Trie tree
 		* @param word the word to be added to the dictionary
 		* */
-		void add(char word[]);
+		void insert(TrieNode* currentNode, char* word);
 		
 		/**
 		* Determine if the character in question (TrieNode) belongs to the Trie structure
@@ -32,8 +39,10 @@ class TrieDictionary
 		* @param node the node in question
 		* @param word the word in question
 		* */
-		bool isMember(TrieNode* node, char word[]);
+		bool search(TrieNode* node, char* word);
+		
+		~TrieDictionary();
 	
-}
+};
 
 #endif /*TRIEDICTIONARY_H_*/
