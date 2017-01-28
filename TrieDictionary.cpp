@@ -14,8 +14,6 @@ TrieDictionary::TrieDictionary(bool isLower)
 {
 	root = NULL;
 	setCase(isLower);
-	
-	std::cout << "currentCase = " << currentCase << "\n";
 }
 
 /**
@@ -62,25 +60,35 @@ void TrieDictionary::insert(TrieDictionary::TrieNode* currentNode, const char* w
 	while(*word != '\0')
 	{
 		//Determine if the currentNode's children is pointing to null
-		if(!currentNode->children[*word - currentCase])
+		if(!currentNode->children[toCase(*word) - currentCase])
 		{
 			//Create a new node at the child that was pointing to null and set that child's parent equal to the currentNode
-			currentNode->children[*word - currentCase] = new TrieNode();
+			currentNode->children[toCase(*word) - currentCase] = new TrieNode();
 			
-			currentNode->children[*word - currentCase]->parent = NULL;			
-			currentNode->children[*word - currentCase]->occurrences = 0;			
-			currentNode->children[*word - currentCase]->parent = currentNode;
+			currentNode->children[toCase(*word) - currentCase]->parent = NULL;			
+			currentNode->children[toCase(*word) - currentCase]->occurrences = 0;			
+			currentNode->children[toCase(*word) - currentCase]->parent = currentNode;
 			
 			//Push a reference to the newly created node into the mallocs vector
-			mallocs.push_back(currentNode->children[*word - currentCase]);
+			mallocs.push_back(currentNode->children[toCase(*word) - currentCase]);
 		}
 		
-		currentNode = currentNode->children[*word - currentCase];
+		currentNode = currentNode->children[toCase(*word) - currentCase];
 		word++;
 	}
 	
 	//Once the null character has been reached and the word is completed, increment the occurrences of the word
 	++currentNode->occurrences;
+}
+
+/**
+* Takes in a character and parses it to the state of the current case
+*
+* @param c the character in question
+* */
+char TrieDictionary::toCase(char c)
+{
+	return currentCase == LOWER_CASE ? tolower(c) : toupper(c);
 }
 
 /**
@@ -96,10 +104,10 @@ TrieDictionary::TrieNode* TrieDictionary::search(TrieDictionary::TrieNode* curre
 	//Traverse the word
 	while(*word != '\0')
 	{
-		if(currentNode->children[*word - currentCase])
+		if(currentNode->children[toCase(*word) - currentCase])
 		{
 			//Move into the node that isn't null
-			currentNode = currentNode->children[*word - currentCase];
+			currentNode = currentNode->children[toCase(*word) - currentCase];
 			word++;
 		}
 		else return NULL;

@@ -57,6 +57,13 @@ class TrieDictionary
 		* @return if found: the node that was found in the search; else: null;
 		* */
 		TrieNode* search(TrieNode* currentNode, const char* word);
+		
+		/**
+		* Takes in a character and parses it to the state of the current case
+		*
+		* @param c the character in question
+		* */
+		char toCase(char c);
 	
 	public:
 	
