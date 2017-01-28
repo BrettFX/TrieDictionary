@@ -12,6 +12,9 @@ class TrieDictionary
 		static const int ALPHABET_SIZE = 26;
 		static const int LOWER_CASE = 'a';
 		static const int UPPER_CASE = 'A';
+		
+		/**Keep track of the current case*/
+		int currentCase;
 	
 		struct TrieNode
 		{
@@ -58,6 +61,20 @@ class TrieDictionary
 	public:
 	
 		TrieDictionary();
+		
+		/**
+		* Overload constructor to allow the user to specify the case that the dictionary handles
+		*
+		* @param isLower determines if the case of each character will be treated as lowercase or uppercase
+		* */
+		TrieDictionary(bool isLower);
+		
+		/**
+		* Sets the current case to the specified case based on the boolean outcome of the parameter
+		*
+		* @param isLower determines if the case of each character will be treated as lowercase or uppercase
+		* */
+		void setCase(bool isLower);
 	
 		/**
 		* Add a word to the dictionary		*

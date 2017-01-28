@@ -14,7 +14,7 @@ int main(int argc, char** argv)
 	//char input[256];	
 	string input;
 	
-	TrieDictionary myDictionary;
+	TrieDictionary myDictionary(false);
 	
 	// cout << "Please enter a word to be added to the dictionary: ";
 	// getline(cin, input);
@@ -25,19 +25,24 @@ int main(int argc, char** argv)
 	
 	string test;
 	
-	test = "brett";
+	//test = "brett";
+	test = "BRETT";
 	myDictionary.insert(&test.at(0));
 	
-	test = "norma";
+	//test = "norma";
+	test = "NORMA";
 	myDictionary.insert(&test.at(0));
 	
-	test = "brandon";
+	//test = "brandon";
+	test = "BRANDON";
 	myDictionary.insert(&test.at(0));
 	
-	test = "antwan";
+	//test = "antwan";
+	test = "ANTWAN";
 	myDictionary.insert(&test.at(0));
 	
-	test = "sally";
+	//test = "sally";
+	test = "SALLY";
 	myDictionary.insert(&test.at(0));
 	
 	myDictionary.lexiDisplay();

@@ -2,7 +2,30 @@
 
 TrieDictionary::TrieDictionary()
 {	
-	root = NULL;	
+	TrieDictionary(true);
+}
+
+/**
+* Overload constructor to allow the user to specify the case that the dictionary handles
+*
+* @param isLower determines if the case of each character will be treated as lowercase or uppercase
+* */
+TrieDictionary::TrieDictionary(bool isLower)
+{
+	root = NULL;
+	setCase(isLower);
+	
+	std::cout << "currentCase = " << currentCase << "\n";
+}
+
+/**
+* Sets the current case to the specified case based on the boolean outcome of the parameter
+*
+* @param isLower determines if the case of each character will be treated as lowercase or uppercase
+* */
+void TrieDictionary::setCase(bool isLower)
+{
+	currentCase = isLower ? LOWER_CASE : UPPER_CASE;
 }
 
 /**
@@ -39,20 +62,20 @@ void TrieDictionary::insert(TrieDictionary::TrieNode* currentNode, const char* w
 	while(*word != '\0')
 	{
 		//Determine if the currentNode's children is pointing to null
-		if(!currentNode->children[*word - LOWER_CASE])
+		if(!currentNode->children[*word - currentCase])
 		{
 			//Create a new node at the child that was pointing to null and set that child's parent equal to the currentNode
-			currentNode->children[*word - LOWER_CASE] = new TrieNode();
+			currentNode->children[*word - currentCase] = new TrieNode();
 			
-			currentNode->children[*word - LOWER_CASE]->parent = NULL;			
-			currentNode->children[*word - LOWER_CASE]->occurrences = 0;			
-			currentNode->children[*word - LOWER_CASE]->parent = currentNode;
+			currentNode->children[*word - currentCase]->parent = NULL;			
+			currentNode->children[*word - currentCase]->occurrences = 0;			
+			currentNode->children[*word - currentCase]->parent = currentNode;
 			
 			//Push a reference to the newly created node into the mallocs vector
-			mallocs.push_back(currentNode->children[*word - LOWER_CASE]);
+			mallocs.push_back(currentNode->children[*word - currentCase]);
 		}
 		
-		currentNode = currentNode->children[*word - LOWER_CASE];
+		currentNode = currentNode->children[*word - currentCase];
 		word++;
 	}
 	
@@ -73,10 +96,10 @@ TrieDictionary::TrieNode* TrieDictionary::search(TrieDictionary::TrieNode* curre
 	//Traverse the word
 	while(*word != '\0')
 	{
-		if(currentNode->children[*word - LOWER_CASE])
+		if(currentNode->children[*word - currentCase])
 		{
 			//Move into the node that isn't null
-			currentNode = currentNode->children[*word - LOWER_CASE];
+			currentNode = currentNode->children[*word - currentCase];
 			word++;
 		}
 		else return NULL;
@@ -178,7 +201,7 @@ void TrieDictionary::lexiDisplay(TrieDictionary::TrieNode* currentNode)
 		if(currentNode->children[i])
 		{
 			//Push back each character into the word
-			charsInWord.push_back(LOWER_CASE + i);
+			charsInWord.push_back(currentCase + i);
 			lexiDisplay(currentNode->children[i]);
 			charsInWord.pop_back();
 		}
