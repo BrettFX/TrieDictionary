@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <cstdio>
+#include <string>
 
 #include "TrieDictionary.h"
 
@@ -10,30 +11,34 @@ void display(char* word, char delim);
 
 int main(int argc, char** argv)
 {
-	char input[256];
+	//char input[256];	
+	string input;
 	
-	cout << "Please enter a word to be added to the dictionary: ";
-	scanf("%100[^\n]", input);
+	TrieDictionary myDictionary;
 	
-	display(input, ' ');
+	// cout << "Please enter a word to be added to the dictionary: ";
+	// cin >> input;
+	//scanf("%100[^\n]", input);
+	
+	myDictionary.insert("brett");
+	myDictionary.insert("norma");
+	myDictionary.insert("brandon");
+	myDictionary.insert("antwan");
+	myDictionary.insert("sally");
+	
+	myDictionary.lexiDisplay();
 	
 	return 0;
 }
 
 void display(char* word, char delim)
-{
-	char c;
-	
+{	
 	if(*word != '\0')
 	{
 		cout << "Your word: ";
 		
 		while(*word != '\0')
-		{
-			c = tolower(*word);
-			cout << c << delim;			
-			word++;
-		}
+			cout << static_cast<char>(tolower(*word++)) << delim;	
 		
 		cout << "\n";
 	}

@@ -14,9 +14,15 @@ void TrieDictionary::insert(char* word)
 {
 	if(!root)
 	{
+		std::cout << "Creating root...\n";
+		
 		root = new TrieNode();
+		
 		root->parent = NULL;		
 		root->occurrences = 0;
+		
+		//Push a reference to the newly created node into the mallocs vector
+		mallocs.push_back(root);
 	}		
 	
 	insert(root, word);
@@ -37,10 +43,13 @@ void TrieDictionary::insert(TrieDictionary::TrieNode* currentNode, char* word)
 		{
 			//Create a new node at the child that was pointing to null and set that child's parent equal to the currentNode
 			currentNode->children[*word - CASE] = new TrieNode();
-			currentNode->children[*word - CASE]->parent = NULL;			
-			currentNode->children[*word - CASE]->occurrences = 0;
 			
+			currentNode->children[*word - CASE]->parent = NULL;			
+			currentNode->children[*word - CASE]->occurrences = 0;			
 			currentNode->children[*word - CASE]->parent = currentNode;
+			
+			//Push a reference to the newly created node into the mallocs vector
+			mallocs.push_back(currentNode->children[*word - CASE]);
 		}
 		
 		currentNode = currentNode->children[*word - CASE];
@@ -48,7 +57,7 @@ void TrieDictionary::insert(TrieDictionary::TrieNode* currentNode, char* word)
 	}
 	
 	//Once the null character has been reached and the word is completed, increment the occurrences of the word
-	currentNode->occurrences++;
+	++currentNode->occurrences;
 }
 
 /**
@@ -92,7 +101,7 @@ void TrieDictionary::remove(TrieDictionary::TrieNode* currentNode, char* word)
 	//Make sure the word exists
 	if(currentNode)
 	{
-		currentNode->occurrences--;
+		--currentNode->occurrences;
 		
 		//See if isLeaf and the node has children
 		for(int i = 0; i < ALPHABET_SIZE; i++)
@@ -135,7 +144,11 @@ void TrieDictionary::remove(TrieDictionary::TrieNode* currentNode, char* word)
 void TrieDictionary::lexiDisplay()
 {
 	if(root)
+	{
+		std::cout << "Starting at root...\n";
+		
 		lexiDisplay(root);
+	}
 	else
 		std::cout << "No words exist in this dictionary\n";
 }
@@ -174,5 +187,9 @@ void TrieDictionary::lexiDisplay(TrieDictionary::TrieNode* currentNode)
 
 TrieDictionary::~TrieDictionary()
 {
-	std::cout << "Warning: Nothing free'd; Memory leak imminent\n\n";
+	for(std::vector<TrieNode*>::iterator it = mallocs.begin(); it != mallocs.end(); it++)
+	{
+		std::cout << "Deleting " << *it << "\n";
+		delete *it;
+	}
 }

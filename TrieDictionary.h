@@ -24,6 +24,12 @@ class TrieDictionary
 		std::vector<char> charsInWord;
 		
 		/**
+		* Keeps track of all the memory allocations for a quicker release
+		* when the object is destroyed
+		* */
+		std::vector<TrieNode*> mallocs;
+		
+		/**
 		* Add a word to the dictionary
 		*
 		* @param currentNode the currentNode in traversing the Trie tree
