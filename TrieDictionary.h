@@ -10,7 +10,8 @@ class TrieDictionary
 	private:
 		
 		static const int ALPHABET_SIZE = 26;
-		static const int CASE = 'a';
+		static const int LOWER_CASE = 'a';
+		static const int UPPER_CASE = 'A';
 	
 		struct TrieNode
 		{
@@ -35,7 +36,7 @@ class TrieDictionary
 		* @param currentNode the currentNode in traversing the Trie tree
 		* @param word the word to be added to the dictionary
 		* */
-		void insert(TrieNode* currentNode, char* word);
+		void insert(TrieNode* currentNode, const char* word);
 		
 		/**
 		* Displays the Trie tree in lexicographical order (pre-order)
@@ -43,6 +44,16 @@ class TrieDictionary
 		* @param currentNode the node that will be used in traversal		
 		* */
 		void lexiDisplay(TrieNode* currentNode);
+		
+		/**
+		* Determine if the character in question (TrieNode) belongs to the Trie structure
+		*
+		* @param node the node in question
+		* @param word the word in question
+		*
+		* @return if found: the node that was found in the search; else: null;
+		* */
+		TrieNode* search(TrieNode* currentNode, const char* word);
 	
 	public:
 	
@@ -53,18 +64,7 @@ class TrieDictionary
 		* 
 		* @param word the word to be added to the dictionary
 		* */
-		void insert(char* word);
-		
-		/**
-		* Determine if the character in question (TrieNode) belongs to the Trie structure
-		*
-		* @param node the node in question
-		* @param word the word in question
-		*
-		* @return if found: the node that was found in the search; else: null;
-		* */
-		TrieNode* search(TrieNode* currentNode, char* word);
-		
+		void insert(const char* word);		
 		
 		/**
 		* Deletes the node in question based on the return value of the search method
@@ -72,7 +72,7 @@ class TrieDictionary
 		* @param currentNode the current node in traversing the Trie tree
 		* @param word the word to be deleted from the Trie tree
 		* */
-		void remove(TrieNode* currentNode, char* word);
+		void remove(TrieNode* currentNode, const char* word);
 		
 		/**
 		* Displays the Trie tree in lexicographical order (pre-order)

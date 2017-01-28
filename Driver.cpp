@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void display(char* word, char delim);
+void display(const char* word, char delim);
 
 int main(int argc, char** argv)
 {
@@ -17,21 +17,35 @@ int main(int argc, char** argv)
 	TrieDictionary myDictionary;
 	
 	// cout << "Please enter a word to be added to the dictionary: ";
-	// cin >> input;
+	// getline(cin, input);
+	
+	// display(&input.at(0), '\0');
+	
 	//scanf("%100[^\n]", input);
 	
-	myDictionary.insert("brett");
-	myDictionary.insert("norma");
-	myDictionary.insert("brandon");
-	myDictionary.insert("antwan");
-	myDictionary.insert("sally");
+	string test;
+	
+	test = "brett";
+	myDictionary.insert(&test.at(0));
+	
+	test = "norma";
+	myDictionary.insert(&test.at(0));
+	
+	test = "brandon";
+	myDictionary.insert(&test.at(0));
+	
+	test = "antwan";
+	myDictionary.insert(&test.at(0));
+	
+	test = "sally";
+	myDictionary.insert(&test.at(0));
 	
 	myDictionary.lexiDisplay();
 	
 	return 0;
 }
 
-void display(char* word, char delim)
+void display(const char* word, char delim)
 {	
 	if(*word != '\0')
 	{

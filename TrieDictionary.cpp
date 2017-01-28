@@ -10,7 +10,7 @@ TrieDictionary::TrieDictionary()
 * 
 * @param word the word to be added to the dictionary
 * */
-void TrieDictionary::insert(char* word)
+void TrieDictionary::insert(const char* word)
 {
 	if(!root)
 	{
@@ -34,25 +34,25 @@ void TrieDictionary::insert(char* word)
 * @param currentNode the currentNode in traversing the Trie tree
 * @param word the word to be added to the dictionary
 * */
-void TrieDictionary::insert(TrieDictionary::TrieNode* currentNode, char* word)
+void TrieDictionary::insert(TrieDictionary::TrieNode* currentNode, const char* word)
 {
 	while(*word != '\0')
 	{
 		//Determine if the currentNode's children is pointing to null
-		if(!currentNode->children[*word - CASE])
+		if(!currentNode->children[*word - LOWER_CASE])
 		{
 			//Create a new node at the child that was pointing to null and set that child's parent equal to the currentNode
-			currentNode->children[*word - CASE] = new TrieNode();
+			currentNode->children[*word - LOWER_CASE] = new TrieNode();
 			
-			currentNode->children[*word - CASE]->parent = NULL;			
-			currentNode->children[*word - CASE]->occurrences = 0;			
-			currentNode->children[*word - CASE]->parent = currentNode;
+			currentNode->children[*word - LOWER_CASE]->parent = NULL;			
+			currentNode->children[*word - LOWER_CASE]->occurrences = 0;			
+			currentNode->children[*word - LOWER_CASE]->parent = currentNode;
 			
 			//Push a reference to the newly created node into the mallocs vector
-			mallocs.push_back(currentNode->children[*word - CASE]);
+			mallocs.push_back(currentNode->children[*word - LOWER_CASE]);
 		}
 		
-		currentNode = currentNode->children[*word - CASE];
+		currentNode = currentNode->children[*word - LOWER_CASE];
 		word++;
 	}
 	
@@ -68,15 +68,15 @@ void TrieDictionary::insert(TrieDictionary::TrieNode* currentNode, char* word)
 *
 * @return if found: the node that was found in the search; else: null;
 * */
-TrieDictionary::TrieNode* TrieDictionary::search(TrieDictionary::TrieNode* currentNode, char* word)
+TrieDictionary::TrieNode* TrieDictionary::search(TrieDictionary::TrieNode* currentNode, const char* word)
 {
 	//Traverse the word
 	while(*word != '\0')
 	{
-		if(currentNode->children[*word - CASE])
+		if(currentNode->children[*word - LOWER_CASE])
 		{
 			//Move into the node that isn't null
-			currentNode = currentNode->children[*word - CASE];
+			currentNode = currentNode->children[*word - LOWER_CASE];
 			word++;
 		}
 		else return NULL;
@@ -91,7 +91,7 @@ TrieDictionary::TrieNode* TrieDictionary::search(TrieDictionary::TrieNode* curre
 * @param currentNode the current node in traversing the Trie tree
 * @param word the word to be deleted from the Trie tree
 * */
-void TrieDictionary::remove(TrieDictionary::TrieNode* currentNode, char* word)
+void TrieDictionary::remove(TrieDictionary::TrieNode* currentNode, const char* word)
 {
 	TrieNode* parent = NULL;
 	bool isLeaf = true;
@@ -178,7 +178,7 @@ void TrieDictionary::lexiDisplay(TrieDictionary::TrieNode* currentNode)
 		if(currentNode->children[i])
 		{
 			//Push back each character into the word
-			charsInWord.push_back(CASE + i);
+			charsInWord.push_back(LOWER_CASE + i);
 			lexiDisplay(currentNode->children[i]);
 			charsInWord.pop_back();
 		}
