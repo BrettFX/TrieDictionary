@@ -122,6 +122,19 @@ TrieDictionary::TrieNode* TrieDictionary::search(TrieDictionary::TrieNode* curre
 /**
 * Deletes the node in question based on the return value of the search method
 *
+* @param word the word to be deleted from the Trie tree
+* */
+void TrieDictionary::remove(const char* word)
+{
+	if(root)
+		remove(root, word);
+	else
+		std::cout << "There are no words to be removed from the dictionary.\n";
+}
+
+/**
+* Deletes the node in question based on the return value of the search method
+*
 * @param currentNode the current node in traversing the Trie tree
 * @param word the word to be deleted from the Trie tree
 * */
@@ -170,6 +183,8 @@ void TrieDictionary::remove(TrieDictionary::TrieNode* currentNode, const char* w
 			}
 		}
 	}
+	else
+		std::cout << "The supplied entry does not exist.\n";
 }
 
 /**
@@ -203,7 +218,7 @@ void TrieDictionary::lexiDisplay(TrieDictionary::TrieNode* currentNode)
 			std::cout << *it;
 		}
 		
-		std::cout << " " << currentNode->occurrences << "\n";
+		std::cout << "\n";
 	}
 	
 	//Traverse children and find any child that exists

@@ -44,6 +44,14 @@ class TrieDictionary
 		void insert(TrieNode* currentNode, const char* word);
 		
 		/**
+		* Deletes the node in question based on the return value of the search method
+		*
+		* @param currentNode the current node in traversing the Trie tree
+		* @param word the word to be deleted from the Trie tree
+		* */
+		void remove(TrieNode* currentNode, const char* word);
+		
+		/**
 		* Displays the Trie tree in lexicographical order (pre-order)
 		*
 		* @param currentNode the node that will be used in traversal		
@@ -95,10 +103,9 @@ class TrieDictionary
 		/**
 		* Deletes the node in question based on the return value of the search method
 		*
-		* @param currentNode the current node in traversing the Trie tree
 		* @param word the word to be deleted from the Trie tree
 		* */
-		void remove(TrieNode* currentNode, const char* word);
+		void remove(const char* word);
 		
 		/**
 		* Displays the Trie tree in lexicographical order (pre-order)

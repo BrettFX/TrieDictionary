@@ -7,12 +7,23 @@
 
 using namespace std;
 
+enum Choice
+{
+	INSERT = 1,
+	REMOVE,
+	DISPLAY,
+	EXIT
+};
+
 void display(const char* word, char delim);
+
+void menu();
+
+void renderChoice(int choice, TrieDictionary& dictionary);
 
 int main(int argc, char** argv)
 {
-	//char input[256];	
-	string input;
+	int choice;
 	bool charCase = false;
 	char c;
 	
@@ -23,36 +34,32 @@ int main(int argc, char** argv)
 	
 	TrieDictionary myDictionary(charCase);
 	
-	// cout << "Please enter a word to be added to the dictionary: ";
-	// getline(cin, input);
-	
-	// display(&input.at(0), '\0');
-	
-	//scanf("%100[^\n]", input);
-	
-	string test;
-	
-	test = "BRETT";
-	myDictionary.insert(&test.at(0));	
-	
-	test = "NORMA";
-	myDictionary.insert(&test.at(0));	
-	
-	test = "BRANDON";
-	myDictionary.insert(&test.at(0));	
-	
-	test = "ANTWAN";
-	myDictionary.insert(&test.at(0));	
-	
-	test = "SALLY";
-	myDictionary.insert(&test.at(0));
-	
-	test = "BRETT";
-	myDictionary.insert(&test.at(0));
-	
-	myDictionary.lexiDisplay();
+	do
+	{
+		do
+		{
+			menu();
+			cin >> choice;
+			
+			if(choice < INSERT || choice > EXIT)
+				cout << "Invalid choice.\n";
+			else
+				renderChoice(choice, myDictionary);
+			
+		}while(choice < INSERT || choice > EXIT);
+	}while(choice != EXIT);
 	
 	return 0;
+}
+
+void menu()
+{
+	cout << INSERT << ". Insert\n";
+	cout << REMOVE << ". Remove\n";
+	cout << DISPLAY << ". Display\n";
+	cout << EXIT << ". Exit\n\n";
+	
+	cout << ">> ";
 }
 
 void display(const char* word, char delim)
@@ -68,4 +75,36 @@ void display(const char* word, char delim)
 	}
 	else
 		cout << "No word to display\n\n";
+}
+
+void renderChoice(int choice, TrieDictionary& dictionary)
+{
+	string input;
+	
+	switch(choice)
+	{
+		case INSERT:
+			cout << "What word would you like to insert? ";
+			cin >> input;
+			dictionary.insert(&input.at(0));
+			break;
+			
+		case REMOVE:
+			cout << "What word would you like to remove? ";
+			cin >> input;
+			dictionary.remove(&input.at(0));
+			break;
+			
+		case DISPLAY:
+			dictionary.lexiDisplay();
+			break;
+			
+		case EXIT:
+			cout << "Exiting...\n\n";
+			break;
+			
+		default:
+			cout << "Invalid choice.\n\n";
+			break;
+	}
 }
