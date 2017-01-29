@@ -23,12 +23,14 @@ class TrieDictionary
 			int occurrences;					
 		};
 		
+		/**Keeps track of the root of the Trie tree*/
 		TrieNode* root;
 		
+		/**Used to keep track of the characters in each word when displaying*/
 		std::vector<char> charsInWord;
 		
 		/**
-		* Keeps track of all the memory allocations for a quicker release
+		* Keeps track of all the memory allocations for a quicker way to release memory
 		* when the object is destroyed
 		* */
 		std::vector<TrieNode*> mallocs;

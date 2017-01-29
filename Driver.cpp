@@ -47,6 +47,9 @@ int main(int argc, char** argv)
 	test = "SALLY";
 	myDictionary.insert(&test.at(0));
 	
+	test = "BRETT";
+	myDictionary.insert(&test.at(0));
+	
 	myDictionary.lexiDisplay();
 	
 	return 0;

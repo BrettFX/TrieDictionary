@@ -78,7 +78,10 @@ void TrieDictionary::insert(TrieDictionary::TrieNode* currentNode, const char* w
 	}
 	
 	//Once the null character has been reached and the word is completed, increment the occurrences of the word
-	++currentNode->occurrences;
+	if(currentNode->occurrences == 0)
+		currentNode->occurrences++;
+	else
+		std::cout << "Entry already exists\n";
 }
 
 /**
@@ -132,7 +135,7 @@ void TrieDictionary::remove(TrieDictionary::TrieNode* currentNode, const char* w
 	//Make sure the word exists
 	if(currentNode)
 	{
-		--currentNode->occurrences;
+		currentNode->occurrences--;
 		
 		//See if isLeaf and the node has children
 		for(int i = 0; i < ALPHABET_SIZE; i++)
